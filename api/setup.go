@@ -6,7 +6,7 @@ import (
 	"github.com/go-chi/chi"
 	"net/http"
 
-	"github.com/jinzhu/gorm/dialects/mysql"
+	_  "github.com/jinzhu/gorm/dialects/mysql"
 
 	"github.com/evilsocket/islazy/log"
 )
