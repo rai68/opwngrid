@@ -52,7 +52,7 @@ func validateToken(header string) (jwt.MapClaims, error) {
 
 	log.Debug("%+v", claims)
 
-	if expiresAt, err := time.Parse(time.RFC3339, claims["expires_at"].(string)); err != nil{
+	if expiresAt, err := time.Parse(time.RFC3339, claims["expires_at"].(string)); err != nil {
 		return nil, ErrTokenExpired
 	} else if expiresAt.Before(time.Now()) {
 		return nil, ErrTokenExpired
@@ -62,7 +62,7 @@ func validateToken(header string) (jwt.MapClaims, error) {
 	return claims, err
 }
 
-func Authenticate(w http.ResponseWriter, r *http.Request) *models.Unit{
+func Authenticate(w http.ResponseWriter, r *http.Request) *models.Unit {
 	client := clientIP(r)
 	tokenHeader := reqToken(r)
 	if tokenHeader == "" {

@@ -35,7 +35,7 @@ func (api *API) PeerGetInbox(w http.ResponseWriter, r *http.Request) {
 	JSON(w, http.StatusOK, obj)
 }
 
-func (api *API) InboxMessage(id int)(map[string]interface{}, int, error) {
+func (api *API) InboxMessage(id int) (map[string]interface{}, int, error) {
 	message, err := api.Client.InboxMessage(id)
 	if err != nil {
 		return nil, http.StatusUnprocessableEntity, err

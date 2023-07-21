@@ -22,6 +22,7 @@ type EnrollmentRequest struct {
 }
 
 var ansi = regexp.MustCompile("\033\\[(?:[0-9]{1,3}(?:;[0-9]{1,3})*)?[m|K]")
+
 func clean(s string) string {
 	for _, m := range ansi.FindAllString(s, -1) {
 		s = strings.Replace(s, m, "", -1)

@@ -88,7 +88,7 @@ func (pair *KeyPair) Decrypt(ciphertext []byte) ([]byte, error) {
 		return nil, fmt.Errorf("data buffer too short")
 	}
 
-	keySizeBuf := ciphertext[NonceLength:NonceLength+4]
+	keySizeBuf := ciphertext[NonceLength : NonceLength+4]
 	keySize := binary.LittleEndian.Uint32(keySizeBuf)
 	dataAvailable -= 4
 
@@ -96,7 +96,7 @@ func (pair *KeyPair) Decrypt(ciphertext []byte) ([]byte, error) {
 		return nil, fmt.Errorf("data buffer too short")
 	}
 
-	encKey := ciphertext[NonceLength + 4: NonceLength+4+keySize]
+	encKey := ciphertext[NonceLength+4 : NonceLength+4+keySize]
 	ciphertext = ciphertext[NonceLength+4+keySize:]
 
 	// decrypt the key
