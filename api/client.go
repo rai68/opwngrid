@@ -22,7 +22,7 @@ var (
 )
 
 const (
-	Endpoint = "https://api.pwnagotchi.ai/api/v1"
+	Endpoint = "https://api.opwngrid.xyz/api/v1"
 )
 
 type Client struct {
