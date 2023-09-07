@@ -144,12 +144,12 @@ func setupMode() string {
 		os.Exit(0)
 	}
 
-	mode := "peer"  //mode can only be peer, since we dont need server to be in our way
+	mode := "server"
 	// if keys have been passed explicitly, or one of the inbox actions
 	// has been specified, we're running on the unit
-	//if keysPath != "" {
-	//	mode = "peer"
-	//}
+	if keysPath != "" {
+	    mode = "peer"
+	}
 
 	log.Info("pwngrid v%s starting in %s mode ...", version.Version, mode)
 
