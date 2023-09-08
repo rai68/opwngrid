@@ -144,7 +144,7 @@ func setupMode() string {
 		os.Exit(0)
 	}
 
-	mode := "peerr"
+	mode := "peer"
 	// if keys have been passed explicitly, or one of the inbox actions
 	// has been specified, we're running on the unit
 	// if keysPath != "" {
