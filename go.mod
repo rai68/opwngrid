@@ -1,6 +1,6 @@
-module github.com/evilsocket/pwngrid
+module github.com/jayofelony/opwngrid
 
-go 1.20
+go 1.21
 
 require (
 	github.com/biezhi/gorm-paginator/pagination v0.0.0-20190124091837-7a5c8ed20334
