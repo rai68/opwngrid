@@ -90,7 +90,7 @@ deploy:
     - pwngrid_*.sha256
   on:
     tags: true
-    repo: jayofelony/opwngrid
+    repo: evilsocket/pwngrid
   branches:
     only:
     - "/^v[0-9]+\\.[0-9]+\\.[0-9]+[A-Za-z0-9]+?$/"
