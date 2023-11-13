@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/evilsocket/islazy/log"
-	"github.com/evilsocket/pwngrid/version"
+	"github.com/jayofelony/opwngrid/version"
 )
 
 func main() {

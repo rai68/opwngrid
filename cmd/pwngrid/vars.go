@@ -3,9 +3,9 @@ package main
 import (
 	"flag"
 	"github.com/evilsocket/islazy/log"
-	"github.com/evilsocket/pwngrid/api"
-	"github.com/evilsocket/pwngrid/crypto"
-	"github.com/evilsocket/pwngrid/mesh"
+	"github.com/jayofelony/opwngrid/api"
+	"github.com/jayofelony/opwngrid/crypto"
+	"github.com/jayofelony/opwngrid/mesh"
 )
 
 var (
