@@ -1,8 +1,8 @@
 package api
 
 import (
-	"github.com/evilsocket/pwngrid/crypto"
-	"github.com/evilsocket/pwngrid/mesh"
+	"github.com/jayofelony/opwngrid/crypto"
+	"github.com/jayofelony/opwngrid/mesh"
 	"github.com/go-chi/chi"
 	"net/http"
 

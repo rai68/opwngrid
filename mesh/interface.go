@@ -3,7 +3,7 @@ package mesh
 import (
 	"bufio"
 	"fmt"
-	"github.com/evilsocket/pwngrid/utils"
+	"github.com/jayofelony/opwngrid/utils"
 	"regexp"
 	"strconv"
 	"strings"

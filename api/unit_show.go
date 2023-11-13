@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/evilsocket/pwngrid/models"
+	"github.com/jayofelony/opwngrid/models"
 	"github.com/go-chi/chi"
 	"net/http"
 )
