@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+
 	"github.com/evilsocket/islazy/log"
 	"github.com/jayofelony/opwngrid/api"
 	"github.com/jayofelony/opwngrid/crypto"
@@ -37,6 +38,8 @@ var (
 	server     = (*api.API)(nil)
 	cpuProfile = ""
 	memProfile = ""
+	Endpoint   = "https://api.opwngrid.xyz/api/v1"
+	advertise  = true
 )
 
 func init() {
@@ -72,4 +75,7 @@ func init() {
 
 	flag.StringVar(&cpuProfile, "cpu-profile", cpuProfile, "Generate CPU profile to this file.")
 	flag.StringVar(&memProfile, "mem-profile", cpuProfile, "Generate memory profile to this file.")
+
+	flag.StringVar(&Endpoint, "endpoint", Endpoint, "Pass which endpoint pwngrid should be using.")
+	flag.BoolVar(&advertise, "advertise", advertise, "Advertise?")
 }

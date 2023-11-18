@@ -1,6 +1,11 @@
 package main
 
 import (
+	"os"
+	"os/signal"
+	"runtime/pprof"
+	"time"
+
 	"github.com/evilsocket/islazy/fs"
 	"github.com/evilsocket/islazy/log"
 	"github.com/jayofelony/opwngrid/api"
@@ -10,10 +15,6 @@ import (
 	"github.com/jayofelony/opwngrid/utils"
 	"github.com/jayofelony/opwngrid/version"
 	"github.com/joho/godotenv"
-	"os"
-	"os/signal"
-	"runtime/pprof"
-	"time"
 )
 
 func cleanup() {
@@ -85,6 +86,11 @@ func waitForKeys() {
 
 func setupMesh() {
 	var err error
+
+	if advertise == false {
+		return //this probably doesnt work
+	}
+
 	peer = mesh.MakeLocalPeer(utils.Hostname(), keys)
 	if err = peer.StartAdvertising(iface); err != nil {
 		log.Fatal("error while starting signaling: %v", err)
@@ -164,7 +170,11 @@ func setupMode() string {
 		}
 		// print identity and exit
 		if whoami {
-			log.Info("https://pwnagotchi.ai/pwnfile/#!%s", keys.FingerprintHex)
+			if Endpoint == "https://api.opwngrid.xyz/api/v1" {
+				log.Info("https://opwngrid.xyz/search/%s", keys.FingerprintHex)
+			} else {
+				log.Info("https://pwnagotchi.ai/pwnfile/#!%s", keys.FingerprintHex)
+			}
 			os.Exit(0)
 		}
 		// only start mesh signaling if this is not an inbox action
@@ -177,7 +187,7 @@ func setupMode() string {
 	}
 
 	// setup the proper routes for either server or peer mode
-	err, server = api.Setup(keys, peer, router)
+	err, server = api.Setup(keys, peer, router, Endpoint)
 	if err != nil {
 		log.Fatal("%v", err)
 	}
