@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/evilsocket/islazy/log"
 	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 	"net/http"
 )
 
