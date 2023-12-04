@@ -1,8 +1,8 @@
 package api
 
 import (
-	"github.com/go-chi/chi/v5"
-	"github.com/jayofelony/pwngrid/models"
+	"github.com/jayofelony/opwngrid/models"
+	"github.com/go-chi/chi"
 	"net/http"
 )
 

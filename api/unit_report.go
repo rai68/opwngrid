@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/evilsocket/islazy/log"
-	"github.com/jayofelony/pwngrid/models"
+	"github.com/jayofelony/opwngrid/models"
 	"io/ioutil"
 	"net"
 	"net/http"

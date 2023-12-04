@@ -3,9 +3,9 @@ package api
 import (
 	"net/http"
 
-	"github.com/go-chi/chi/v5"
-	"github.com/jayofelony/pwngrid/crypto"
-	"github.com/jayofelony/pwngrid/mesh"
+	"github.com/go-chi/chi"
+	"github.com/jayofelony/opwngrid/crypto"
+	"github.com/jayofelony/opwngrid/mesh"
 
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 

@@ -4,9 +4,9 @@ import (
 	"flag"
 
 	"github.com/evilsocket/islazy/log"
-	"github.com/jayofelony/pwngrid/api"
-	"github.com/jayofelony/pwngrid/crypto"
-	"github.com/jayofelony/pwngrid/mesh"
+	"github.com/jayofelony/opwngrid/api"
+	"github.com/jayofelony/opwngrid/crypto"
+	"github.com/jayofelony/opwngrid/mesh"
 )
 
 var (

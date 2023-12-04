@@ -3,8 +3,8 @@ package api
 import (
 	"encoding/json"
 	"github.com/evilsocket/islazy/log"
-	"github.com/go-chi/chi/v5"
-	"github.com/jayofelony/pwngrid/mesh"
+	"github.com/jayofelony/opwngrid/mesh"
+	"github.com/go-chi/chi"
 	"io/ioutil"
 	"net/http"
 	"sort"

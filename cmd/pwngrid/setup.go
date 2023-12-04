@@ -8,12 +8,12 @@ import (
 
 	"github.com/evilsocket/islazy/fs"
 	"github.com/evilsocket/islazy/log"
-	"github.com/jayofelony/pwngrid/api"
-	"github.com/jayofelony/pwngrid/crypto"
-	"github.com/jayofelony/pwngrid/mesh"
-	"github.com/jayofelony/pwngrid/models"
-	"github.com/jayofelony/pwngrid/utils"
-	"github.com/jayofelony/pwngrid/version"
+	"github.com/jayofelony/opwngrid/api"
+	"github.com/jayofelony/opwngrid/crypto"
+	"github.com/jayofelony/opwngrid/mesh"
+	"github.com/jayofelony/opwngrid/models"
+	"github.com/jayofelony/opwngrid/utils"
+	"github.com/jayofelony/opwngrid/version"
 	"github.com/joho/godotenv"
 )
 

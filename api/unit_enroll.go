@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 	"github.com/evilsocket/islazy/log"
-	"github.com/jayofelony/pwngrid/models"
+	"github.com/jayofelony/opwngrid/models"
 	"io/ioutil"
 	"net/http"
 )
