@@ -7,8 +7,15 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/evilsocket/islazy v1.11.0
 	github.com/go-chi/chi v1.5.5
+	github.com/go-chi/chi/v5 v5.0.10
 	github.com/go-chi/cors v1.2.1
 	github.com/google/gopacket v1.1.19
 	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.5.1
+)
+
+require (
+	github.com/go-sql-driver/mysql v1.5.0 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	golang.org/x/sys v0.0.0-20200323222414-85ca7c5b95cd // indirect
 )

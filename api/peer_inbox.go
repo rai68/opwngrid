@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/evilsocket/islazy/log"
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 	"github.com/jayofelony/pwngrid/crypto"
 	"github.com/jayofelony/pwngrid/models"
 	"io/ioutil"

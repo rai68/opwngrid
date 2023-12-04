@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/evilsocket/islazy/log"
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 )
 
 func (api *API) setupPeerRoutes() {
