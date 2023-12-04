@@ -12,9 +12,9 @@ import (
 	"time"
 
 	"github.com/evilsocket/islazy/log"
-	"github.com/jayofelony/opwngrid/crypto"
-	"github.com/jayofelony/opwngrid/models"
-	"github.com/jayofelony/opwngrid/utils"
+	"github.com/jayofelony/pwngrid/crypto"
+	"github.com/jayofelony/pwngrid/models"
+	"github.com/jayofelony/pwngrid/utils"
 )
 
 var (

@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi"
-	"github.com/jayofelony/opwngrid/crypto"
-	"github.com/jayofelony/opwngrid/mesh"
+	"github.com/jayofelony/pwngrid/crypto"
+	"github.com/jayofelony/pwngrid/mesh"
 
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 

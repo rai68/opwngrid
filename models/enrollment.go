@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"github.com/evilsocket/islazy/str"
-	"github.com/jayofelony/opwngrid/crypto"
+	"github.com/jayofelony/pwngrid/crypto"
 	"regexp"
 	"strings"
 )

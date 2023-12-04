@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/evilsocket/islazy/log"
-	"github.com/jayofelony/opwngrid/wifi"
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/layers"
+	"github.com/jayofelony/pwngrid/wifi"
 	"sync"
 	"time"
 )

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/evilsocket/islazy/log"
-	"github.com/jayofelony/opwngrid/models"
+	"github.com/jayofelony/pwngrid/models"
 	"net/http"
 	"os"
 	"time"
