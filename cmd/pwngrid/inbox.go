@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/evilsocket/islazy/log"
 	"github.com/evilsocket/islazy/tui"
-	"github.com/jayofelony/opwngrid/api"
+	"github.com/jayofelony/pwngrid/api"
 	"io/ioutil"
 	"os"
 	"os/exec"
