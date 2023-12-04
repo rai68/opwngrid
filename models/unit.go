@@ -3,12 +3,12 @@ package models
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/golang-jwt/jwt/v5"
 	"os"
 	"reflect"
 	"sync"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
 	"github.com/evilsocket/islazy/log"
 )
 

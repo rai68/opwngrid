@@ -4,12 +4,11 @@ import (
 	"errors"
 	"fmt"
 	"github.com/evilsocket/islazy/log"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/jayofelony/pwngrid/models"
 	"net/http"
 	"os"
 	"time"
-
-	"github.com/dgrijalva/jwt-go"
 )
 
 var (
