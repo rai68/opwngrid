@@ -1,4 +1,4 @@
-VERSION=$(shell git describe --abbrev=0 --tags)
+VERSION := $(shell sed -n 's/Version[[:space:]]*=[[:space:]]*"\([0-9.]\+\)"/\1/p' version/ver.go)
 
 all: clean
 	@mkdir build
@@ -18,21 +18,51 @@ clean:
 restart:
 	@service pwngrid restart
 
-release_files: clean
+release_files: clean cross_compile_libpcap_aarch64 cross_compile_libpcap_arm
 	@mkdir build
-	@echo building for linux/armv6l ...
-	@CGO_ENABLED=1 GOARM=6 GOARCH=arm GOOS=linux go build -o build/pwngrid cmd/pwngrid/*.go
-	@zip -j "build/pwngrid_linux_armv6l_$(VERSION).zip" build/pwngrid > /dev/null
-	@rm -rf build/pwngrid
-	@echo building for linux/armv7l
-	@CGO_ENABLED=1 GOARM=7 GOARCH=arm GOOS=linux go build -o build/pwngrid cmd/pwngrid/*.go
-	@zip -j "build/pwngrid_linux_armv7l_$(VERSION).zip" build/pwngrid > /dev/null
-	@rm -rf build/pwngrid
-	@echo building for linux/armv8l ...
-	@CGO_ENABLED=1 GOARCH=arm64 GOOS=linux go build -o build/pwngrid cmd/pwngrid/*.go
-	@zip -j "build/pwngrid_linux_aarch64_$(VERSION).zip" build/pwngrid > /dev/null
-	@rm -rf build/pwngrid
-	@openssl dgst -sha256 "build/pwngrid_linux_armv6l_$(VERSION).zip" > "build/pwngrid-hashes.sha256"
-	@openssl dgst -sha256 "build/pwngrid_linux_armv7l_$(VERSION).zip" > "build/pwngrid-hashes.sha256"
-	@openssl dgst -sha256 "build/pwngrid_linux_aarch64_$(VERSION).zip" > "build/pwngrid-hashes.sha256"
+	@echo building for linux/amd64 ...
+	@CGO_ENABLED=1 GOARCH=amd64 GOOS=linux go build -o build/pwngrid cmd/pwngrid/*.go
+	@openssl dgst -sha256 "build/pwngrid" > "build/pwngrid-amd64.sha256"
+	@zip -j "build/pwngrid-$(VERSION)-amd64.zip" build/pwngrid build/pwngrid-amd64.sha256 > /dev/null
+	@rm -rf build/pwngrid build/pwngrid-amd64.sha256
+	@echo building for linux/armhf ...
+	@CGO_ENABLED=1 CC=arm-linux-gnueabihf-gcc GOARM=6 GOARCH=arm GOOS=linux go build -o build/pwngrid cmd/pwngrid/*.go
+	@openssl dgst -sha256 "build/pwngrid" > "build/pwngrid-armhf.sha256"
+	@zip -j "build/pwngrid-$(VERSION)-armhf.zip" build/pwngrid build/pwngrid-armhf.sha256 > /dev/null
+	@rm -rf build/pwngrid build/pwngrid-armhf.sha256
+	@echo building for linux/aarch64 ...
+	@CGO_ENABLED=1 CC=aarch64-linux-gnu-gcc GOARCH=arm64 GOOS=linux go build -o build/pwngrid cmd/pwngrid/*.go
+	@openssl dgst -sha256 "build/pwngrid" > "build/pwngrid-aarch64.sha256"
+	@zip -j "build/pwngrid-$(VERSION)-aarch64.zip" build/pwngrid build/pwngrid-aarch64.sha256 > /dev/null
+	@rm -rf build/pwngrid build/pwngrid-aarch64.sha256
 	@ls -la build
+
+# requires sudo apt-get install bison flex gcc-arm-linux-gnueabihf
+cross_compile_libpcap_arm:
+	@echo "Cross-compiling libpcap for armhf..."
+	@wget https://www.tcpdump.org/release/libpcap-1.9.1.tar.gz
+	@tar -zxvf libpcap-1.9.1.tar.gz
+	@cd libpcap-1.9.1 && \
+		export CC=arm-linux-gnueabihf-gcc && \
+		./configure --host=arm-linux-gnueabihf && \
+		make
+	@echo "Copying cross-compiled libpcap to /usr/lib/arm-linux-gnueabihf/"
+	@sudo cp libpcap-1.9.1/libpcap.a /usr/lib/arm-linux-gnueabihf/
+	@echo "Clean up..."
+	@rm -rf libpcap-1.9.1 libpcap-1.9.1.tar.gz
+
+# requires sudo apt-get install bison flex gcc-aarch64-linux-gnu
+cross_compile_libpcap_aarch64:
+	@echo "Cross-compiling libpcap for armhf..."
+	@wget https://www.tcpdump.org/release/libpcap-1.9.1.tar.gz
+	@tar -zxvf libpcap-1.9.1.tar.gz
+	@cd libpcap-1.9.1 && \
+		export CC=aarch64-linux-gnu-gcc && \
+		./configure --host=aarch64-linux-gnu && \
+		make
+	@echo "Copying cross-compiled libpcap to /usr/lib/aarch64-linux-gnu/"
+	@sudo cp libpcap-1.9.1/libpcap.a /usr/lib/aarch64-linux-gnu/
+	@echo "Clean up..."
+	@rm -rf libpcap-1.9.1 libpcap-1.9.1.tar.gz
+
+.PHONY: cross_compile_libpcap_arm cross_compile_libpcap_aarch64
