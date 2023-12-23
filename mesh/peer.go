@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/evilsocket/islazy/log"
-	"github.com/google/gopacket/layers"
+	"github.com/gopacket/gopacket/layers"
 	"github.com/jayofelony/pwngrid/crypto"
 	"github.com/jayofelony/pwngrid/version"
 	"github.com/jayofelony/pwngrid/wifi"

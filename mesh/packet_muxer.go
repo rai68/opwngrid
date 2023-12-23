@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"github.com/evilsocket/islazy/async"
 	"github.com/evilsocket/islazy/log"
-	"github.com/google/gopacket"
-	"github.com/google/gopacket/pcap"
+	"github.com/gopacket/gopacket"
+	"github.com/gopacket/gopacket/pcap"
 	"strings"
 	"time"
 )
 
 const (
 	// Ugly, but gopacket folks are not exporting pcap errors, so ...
-	// ref. https://github.com/google/gopacket/blob/96986c90e3e5c7e01deed713ff8058e357c0c047/pcap/pcap.go#L281
+	// ref. https://github.com/gopacket/gopacket/blob/96986c90e3e5c7e01deed713ff8058e357c0c047/pcap/pcap.go#L281
 	ErrIfaceNotUp = "Interface Not Up"
 )
 

@@ -2,8 +2,8 @@ package wifi
 
 import (
 	"fmt"
-	"github.com/google/gopacket"
-	"github.com/google/gopacket/layers"
+	"github.com/gopacket/gopacket"
+	"github.com/gopacket/gopacket/layers"
 )
 
 func Unpack(pkt gopacket.Packet, radio *layers.RadioTap, dot11 *layers.Dot11) (error, []byte) {

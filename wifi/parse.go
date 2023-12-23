@@ -1,8 +1,8 @@
 package wifi
 
 import (
-	"github.com/google/gopacket"
-	"github.com/google/gopacket/layers"
+	"github.com/gopacket/gopacket"
+	"github.com/gopacket/gopacket/layers"
 )
 
 func Parse(packet gopacket.Packet) (ok bool, radio *layers.RadioTap, dot11 *layers.Dot11) {
