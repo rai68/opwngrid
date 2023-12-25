@@ -43,11 +43,11 @@ cross_compile_libpcap_arm:
 	@wget https://www.tcpdump.org/release/libpcap-1.9.1.tar.gz
 	@tar -zxvf libpcap-1.9.1.tar.gz
 	@cd libpcap-1.9.1 && \
-		export CC=arm-linux-gnueabihf-gcc && \
-		./configure --host=arm-linux-gnueabihf && \
+		export CC=arm-linux-gnueabi-gcc && \
+		./configure --host=arm-linux-gnueabi && \
 		make
-	@echo "Copying cross-compiled libpcap to /usr/lib/arm-linux-gnueabihf/"
-	@sudo cp libpcap-1.9.1/libpcap.a /usr/lib/arm-linux-gnueabihf/
+	@echo "Copying cross-compiled libpcap to /usr/lib/arm-linux-gnueabi/"
+	@sudo cp libpcap-1.9.1/libpcap.a /usr/lib/arm-linux-gnueabi/
 	@echo "Clean up..."
 	@rm -rf libpcap-1.9.1 libpcap-1.9.1.tar.gz
 
