@@ -26,7 +26,7 @@ release_files: clean cross_compile_libpcap_x64 cross_compile_libpcap_arm
 	@zip -j "build/pwngrid-$(VERSION)-amd64.zip" build/pwngrid build/pwngrid-amd64.sha256 > /dev/null
 	@rm -rf build/pwngrid build/pwngrid-amd64.sha256
 	@echo building for linux/armhf ...
-	@CGO_ENABLED=1 CC=arm-linux-gnueabihf-gcc GOARM=7 GOARCH=arm GOOS=linux go build -o build/pwngrid cmd/pwngrid/*.go
+	@CGO_ENABLED=1 CC=arm-linux-gnueabihf-gcc GOARM=6 GOARCH=arm GOOS=linux go build -o build/pwngrid cmd/pwngrid/*.go
 	@openssl dgst -sha256 "build/pwngrid" > "build/pwngrid-armhf.sha256"
 	@zip -j "build/pwngrid-$(VERSION)-armhf.zip" build/pwngrid build/pwngrid-armhf.sha256 > /dev/null
 	@rm -rf build/pwngrid build/pwngrid-armhf.sha256
