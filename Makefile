@@ -18,10 +18,10 @@ clean:
 restart:
 	@service pwngrid restart
 
-release_files: clean cross_compile_libpcap_aarch64 cross_compile_libpcap_arm
+release_files: clean cross_compile_libpcap_x64 cross_compile_libpcap_arm
 	@mkdir build
 	@echo building for linux/amd64 ...
-	@CGO_ENABLED=1 GOARCH=amd64 GOOS=linux go build -o build/pwngrid cmd/pwngrid/*.go
+	@CGO_ENABLED=1 CC=x86_64-linux-gnu-gcc GOARCH=amd64 GOOS=linux go build -o build/pwngrid cmd/pwngrid/*.go
 	@openssl dgst -sha256 "build/pwngrid" > "build/pwngrid-amd64.sha256"
 	@zip -j "build/pwngrid-$(VERSION)-amd64.zip" build/pwngrid build/pwngrid-amd64.sha256 > /dev/null
 	@rm -rf build/pwngrid build/pwngrid-amd64.sha256
@@ -51,14 +51,14 @@ cross_compile_libpcap_arm:
 	@echo "Clean up..."
 	@rm -rf libpcap-1.9.1 libpcap-1.9.1.tar.gz
 
-# requires sudo apt-get install bison flex gcc-aarch64-linux-gnu
-cross_compile_libpcap_aarch64:
+# requires sudo apt-get install bison flex gcc-x86-64-linux-gnu
+cross_compile_libpcap_x64:
 	@echo "Cross-compiling libpcap for armhf..."
 	@wget https://www.tcpdump.org/release/libpcap-1.9.1.tar.gz
 	@tar -zxvf libpcap-1.9.1.tar.gz
 	@cd libpcap-1.9.1 && \
-		export CC=aarch64-linux-gnu-gcc && \
-		./configure --host=aarch64-linux-gnu && \
+		export CC=x86_64-linux-gnu-gcc && \
+		./configure --host=x86_64-linux-gnu && \
 		make
 	@echo "Copying cross-compiled libpcap to /usr/lib/aarch64-linux-gnu/"
 	@sudo cp libpcap-1.9.1/libpcap.a /usr/lib/aarch64-linux-gnu/
