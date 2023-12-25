@@ -65,4 +65,4 @@ cross_compile_libpcap_x64:
 	@echo "Clean up..."
 	@rm -rf libpcap-1.9.1 libpcap-1.9.1.tar.gz
 
-.PHONY: cross_compile_libpcap_arm cross_compile_libpcap_aarch64
+.PHONY: cross_compile_libpcap_arm cross_compile_libpcap_x64
