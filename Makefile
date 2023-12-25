@@ -61,7 +61,7 @@ cross_compile_libpcap_x64:
 		./configure --host=x86_64-linux-gnu && \
 		make
 	@echo "Copying cross-compiled libpcap to /usr/lib/aarch64-linux-gnu/"
-	@sudo cp libpcap-1.9.1/libpcap.a /usr/lib/aarch64-linux-gnu/
+	@sudo cp libpcap-1.9.1/libpcap.a /usr/lib/x86_64-linux-gnu/
 	@echo "Clean up..."
 	@rm -rf libpcap-1.9.1 libpcap-1.9.1.tar.gz
 
