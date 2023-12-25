@@ -1,4 +1,4 @@
-VERSION := $(shell sed -n 's/Version[[:space:]]*=[[:space:]]*"\([0-9.]\+\)"/\1/p' version/ver.go)
+VERSION := $(shell sed -n 's/Version\s*=\s*"\([0-9.]\+\)"/\1/p' version/ver.go)
 
 all: clean
 	@mkdir build
