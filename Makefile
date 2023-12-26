@@ -25,11 +25,11 @@ release_files: clean cross_compile_libpcap_x64 cross_compile_libpcap_arm
 	@openssl dgst -sha256 "build/pwngrid" > "build/pwngrid-amd64.sha256"
 	@zip -j "build/pwngrid-$(VERSION)-amd64.zip" build/pwngrid build/pwngrid-amd64.sha256 > /dev/null
 	@rm -rf build/pwngrid build/pwngrid-amd64.sha256
-	@echo building for linux/armhf ...
+	@echo building for linux/armv6l ...
 	@CGO_ENABLED=1 CC=arm-linux-gnueabi-gcc GOARM=6 GOARCH=arm GOOS=linux go build -o build/pwngrid cmd/pwngrid/*.go
-	@openssl dgst -sha256 "build/pwngrid" > "build/pwngrid-armhf.sha256"
-	@zip -j "build/pwngrid-$(VERSION)-armhf.zip" build/pwngrid build/pwngrid-armhf.sha256 > /dev/null
-	@rm -rf build/pwngrid build/pwngrid-armhf.sha256
+	@openssl dgst -sha256 "build/pwngrid" > "build/pwngrid-armv6l.sha256"
+	@zip -j "build/pwngrid-$(VERSION)-armv6l.zip" build/pwngrid build/pwngrid-armv6l.sha256 > /dev/null
+	@rm -rf build/pwngrid build/pwngrid-armv6l.sha256
 	@echo building for linux/aarch64 ...
 	@CGO_ENABLED=1 CC=aarch64-linux-gnu-gcc GOARCH=arm64 GOOS=linux go build -o build/pwngrid cmd/pwngrid/*.go
 	@openssl dgst -sha256 "build/pwngrid" > "build/pwngrid-aarch64.sha256"
@@ -37,9 +37,9 @@ release_files: clean cross_compile_libpcap_x64 cross_compile_libpcap_arm
 	@rm -rf build/pwngrid build/pwngrid-aarch64.sha256
 	@ls -la build
 
-# requires sudo apt-get install bison flex gcc-arm-linux-gnueabihf
+# requires sudo apt-get install bison flex gcc-arm-linux-gnueabi
 cross_compile_libpcap_arm:
-	@echo "Cross-compiling libpcap for armhf..."
+	@echo "Cross-compiling libpcap for armv6l..."
 	@wget https://www.tcpdump.org/release/libpcap-1.9.1.tar.gz
 	@tar -zxvf libpcap-1.9.1.tar.gz
 	@cd libpcap-1.9.1 && \
