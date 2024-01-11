@@ -5,12 +5,12 @@ import (
 	"github.com/evilsocket/islazy/log"
 	"github.com/go-chi/chi/v5"
 	"github.com/jayofelony/pwngrid/mesh"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"sort"
 )
 
-// GET /api/v1/mesh/peers
+// PeerGetPeers GET /api/v1/mesh/peers
 func (api *API) PeerGetPeers(w http.ResponseWriter, r *http.Request) {
 	peers := make([]*mesh.Peer, 0)
 	mesh.Peers.Range(func(key, value interface{}) bool {
@@ -26,7 +26,7 @@ func (api *API) PeerGetPeers(w http.ResponseWriter, r *http.Request) {
 	JSON(w, http.StatusOK, peers)
 }
 
-// GET /api/v1/mesh/memory
+// PeerGetMemory GET /api/v1/mesh/memory
 func (api *API) PeerGetMemory(w http.ResponseWriter, r *http.Request) {
 	peers := api.Mesh.Memory()
 	// higher number of encounters first
@@ -36,7 +36,7 @@ func (api *API) PeerGetMemory(w http.ResponseWriter, r *http.Request) {
 	JSON(w, http.StatusOK, peers)
 }
 
-// GET /api/v1/mesh/memory/<fingerprint>
+// PeerGetMemoryOf GET /api/v1/mesh/memory/<fingerprint>
 func (api *API) PeerGetMemoryOf(w http.ResponseWriter, r *http.Request) {
 	fingerprint := chi.URLParam(r, "fingerprint")
 	peer := api.Mesh.MemoryOf(fingerprint)
@@ -47,7 +47,7 @@ func (api *API) PeerGetMemoryOf(w http.ResponseWriter, r *http.Request) {
 	JSON(w, http.StatusOK, peer)
 }
 
-// GET /api/v1/mesh/<status>
+// PeerSetSignaling GET /api/v1/mesh/<status>
 func (api *API) PeerSetSignaling(w http.ResponseWriter, r *http.Request) {
 	status := chi.URLParam(r, "status")
 
@@ -65,16 +65,16 @@ func (api *API) PeerSetSignaling(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// GET /api/v1/mesh/data
+// PeerGetMeshData GET /api/v1/mesh/data
 func (api *API) PeerGetMeshData(w http.ResponseWriter, r *http.Request) {
 	JSON(w, http.StatusOK, api.Peer.Data())
 }
 
-// POST /api/v1/mesh/data
+// PeerSetMeshData POST /api/v1/mesh/data
 func (api *API) PeerSetMeshData(w http.ResponseWriter, r *http.Request) {
 	var newData map[string]interface{}
 
-	body, err := ioutil.ReadAll(r.Body)
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		ERROR(w, http.StatusUnprocessableEntity, err)
 		return

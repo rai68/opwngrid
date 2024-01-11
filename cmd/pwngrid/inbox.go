@@ -5,7 +5,6 @@ import (
 	"github.com/evilsocket/islazy/log"
 	"github.com/evilsocket/islazy/tui"
 	"github.com/jayofelony/pwngrid/api"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"runtime"
@@ -21,7 +20,10 @@ func clearScreen() {
 	}
 	cmd := exec.Command(what[0], what[1:]...)
 	cmd.Stdout = os.Stdout
-	cmd.Run()
+	err := cmd.Run()
+	if err != nil {
+		return
+	}
 }
 
 func showInbox(server *api.API, box map[string]interface{}) {
@@ -98,7 +100,7 @@ func showMessage(msg map[string]interface{}) {
 	if output == "" {
 		fmt.Printf("%s\n", msg["data"])
 		fmt.Println()
-	} else if err := ioutil.WriteFile(output, msg["data"].([]byte), os.ModePerm); err != nil {
+	} else if err := os.WriteFile(output, msg["data"].([]byte), os.ModePerm); err != nil {
 		log.Fatal("error writing to %s: %v", output, err)
 	} else {
 		log.Info("%s written", output)
@@ -114,7 +116,7 @@ func sendMessage() {
 		log.Fatal("-message can not be empty")
 	} else if message[0] == '@' {
 		log.Info("reading %s ...", message[1:])
-		if raw, err = ioutil.ReadFile(message[1:]); err != nil {
+		if raw, err = os.ReadFile(message[1:]); err != nil {
 			log.Fatal("error reading %s: %v", message[1:], err)
 		}
 	} else {

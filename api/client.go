@@ -5,7 +5,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"sync"
@@ -52,7 +52,7 @@ func NewClient(keys *crypto.KeyPair, endpoint string) *Client {
 		if time.Since(info.ModTime()) < models.TokenTTL {
 			log.Debug("loading token from %s ...", ClientTokenFile)
 			var data map[string]interface{}
-			if raw, err := ioutil.ReadFile(ClientTokenFile); err == nil {
+			if raw, err := os.ReadFile(ClientTokenFile); err == nil {
 				if err := json.Unmarshal(raw, &data); err == nil {
 					cli.token = data["token"].(string)
 					cli.tokenAt = info.ModTime()
@@ -104,7 +104,7 @@ func (c *Client) enroll() error {
 
 	if raw, err := json.Marshal(obj); err == nil {
 		log.Debug("saving token to %s ...", ClientTokenFile)
-		if err = ioutil.WriteFile(ClientTokenFile, raw, 0644); err != nil {
+		if err = os.WriteFile(ClientTokenFile, raw, 0644); err != nil {
 			log.Warning("error saving token to %s: %v", ClientTokenFile, err)
 		}
 	} else {
@@ -151,7 +151,7 @@ func (c *Client) request(method string, path string, data interface{}, auth bool
 	if err != nil {
 		return nil, err
 	}
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
 	}

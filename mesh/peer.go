@@ -209,7 +209,7 @@ func (peer *Peer) Update(radio *layers.RadioTap, dot11 *layers.Dot11, adv map[st
 		}
 
 		// the signature is SIGN(advertisement), so we need to remove the signature field and convert back to json.
-		// NOTE: fortunately, keys will be always sorted, so we don't have to do anything in order to guarantee signature
+		// NOTE: fortunately, keys will always be sorted, so we don't have to do anything in order to guarantee signature
 		// consistency (https://stackoverflow.com/questions/18668652/how-to-produce-json-with-sorted-keys-in-go)
 		signedMap := adv
 		delete(signedMap, "signature")

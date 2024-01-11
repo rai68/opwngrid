@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-var chanParser = regexp.MustCompile(`^\s+Channel.([0-9]+)\s+:\s+([0-9\.]+)\s+GHz.*$`)
+var chanParser = regexp.MustCompile(`^\s+Channel.([0-9]+)\s+:\s+([0-9.]+)\s+GHz.*$`)
 
 func ActivateInterface(name string) error {
 	if out, err := utils.Exec("ifconfig", []string{name, "up"}); err != nil {
@@ -36,7 +36,7 @@ func SupportedChannels(iface string) ([]int, error) {
 		return nil, err
 	}
 
-	channels := []int{}
+	var channels []int
 	scanner := bufio.NewScanner(strings.NewReader(out))
 	for scanner.Scan() {
 		line := scanner.Text()

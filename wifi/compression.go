@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"compress/gzip"
 	"fmt"
-	"io/ioutil"
+	"io"
 )
 
 func Compress(data []byte) (bool, []byte, error) {
@@ -33,7 +33,12 @@ func Decompress(data []byte) ([]byte, error) {
 	if zr, err := gzip.NewReader(bytes.NewBuffer(data)); err != nil {
 		return nil, fmt.Errorf("error initializing payload decompression: %v", err)
 	} else {
-		defer zr.Close()
-		return ioutil.ReadAll(zr)
+		defer func(zr *gzip.Reader) {
+			err := zr.Close()
+			if err != nil {
+
+			}
+		}(zr)
+		return io.ReadAll(zr)
 	}
 }

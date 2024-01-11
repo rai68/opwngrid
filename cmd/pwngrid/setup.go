@@ -87,8 +87,8 @@ func waitForKeys() {
 func setupMesh() {
 	var err error
 
-	if advertise == false {
-		return //this probably doesnt work
+	if !advertise {
+		return //this probably doesn't work
 	}
 
 	peer = mesh.MakeLocalPeer(utils.Hostname(), keys)
@@ -159,34 +159,29 @@ func setupMode() string {
 
 	log.Info("pwngrid v%s starting in %s mode ...", version.Version, mode)
 
-	if mode == "peer" {
-		// wait for keys to be generated
-		if wait {
-			waitForKeys()
+	// wait for keys to be generated
+	if wait {
+		waitForKeys()
+	}
+	// load the keys
+	if keys, err = crypto.Load(keysPath); err != nil {
+		log.Fatal("error while loading keys from %s: %v", keysPath, err)
+	}
+	// print identity and exit
+	if whoami {
+		if Endpoint == "https://api.opwngrid.xyz/api/v1" {
+			log.Info("https://opwngrid.xyz/search/%s", keys.FingerprintHex)
+		} else {
+			log.Info("https://pwnagotchi.ai/pwnfile/#!%s", keys.FingerprintHex)
 		}
-		// load the keys
-		if keys, err = crypto.Load(keysPath); err != nil {
-			log.Fatal("error while loading keys from %s: %v", keysPath, err)
-		}
-		// print identity and exit
-		if whoami {
-			if Endpoint == "https://api.opwngrid.xyz/api/v1" {
-				log.Info("https://opwngrid.xyz/search/%s", keys.FingerprintHex)
-			} else {
-				log.Info("https://pwnagotchi.ai/pwnfile/#!%s", keys.FingerprintHex)
-			}
-			os.Exit(0)
-		}
-		// only start mesh signaling if this is not an inbox action
-		if !inbox {
-			setupMesh()
-		}
-	} else if mode == "server" {
-		// server side we just need to setup the database connection
-		setupDB()
+		os.Exit(0)
+	}
+	// only start mesh signaling if this is not an inbox action
+	if !inbox {
+		setupMesh()
 	}
 
-	// setup the proper routes for either server or peer mode
+	// set up the proper routes for either server or peer mode
 	err, server = api.Setup(keys, peer, router, Endpoint)
 	if err != nil {
 		log.Fatal("%v", err)

@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/evilsocket/islazy/fs"
 	"github.com/evilsocket/islazy/log"
-	"io/ioutil"
 	"math"
 	"os"
 	"path"
@@ -38,7 +37,7 @@ func MemoryFromPath(path string) (err error, mem *Memory) {
 
 	err = fs.Glob(path, "*.json", func(fileName string) error {
 		log.Debug("loading %s ...", fileName)
-		data, err := ioutil.ReadFile(fileName)
+		data, err := os.ReadFile(fileName)
 		if err != nil {
 			log.Error("error loading %s: %v", fileName, err)
 			return nil
@@ -115,7 +114,7 @@ func (mem *Memory) Track(fingerprint string, peer *Peer) error {
 	fileName := path.Join(mem.path, fmt.Sprintf("%s.json", fingerprint))
 	if data, err := json.Marshal(peer); err != nil {
 		return err
-	} else if err := ioutil.WriteFile(fileName, data, os.ModePerm); err != nil {
+	} else if err := os.WriteFile(fileName, data, os.ModePerm); err != nil {
 		return err
 	}
 

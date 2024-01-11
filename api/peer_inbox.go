@@ -8,7 +8,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/jayofelony/pwngrid/crypto"
 	"github.com/jayofelony/pwngrid/models"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 )
@@ -18,7 +18,7 @@ var (
 	ErrSenderNotFound = errors.New("sender not found")
 )
 
-// /api/v1/inbox/
+// PeerGetInbox /api/v1/inbox/
 func (api *API) PeerGetInbox(w http.ResponseWriter, r *http.Request) {
 	page, err := pageNum(r)
 	if err != nil {
@@ -175,7 +175,7 @@ func (api *API) SendMessage(fingerprint string, cleartext []byte) (int, error) {
 
 // POST /api/v1/unit/<fingerprint>/inbox
 func (api *API) PeerSendMessageTo(w http.ResponseWriter, r *http.Request) {
-	cleartextMessage, err := ioutil.ReadAll(r.Body)
+	cleartextMessage, err := io.ReadAll(r.Body)
 	if err != nil {
 		log.Error("error reading request body: %v", err)
 		ERROR(w, http.StatusUnprocessableEntity, err)

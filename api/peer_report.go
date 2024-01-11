@@ -3,15 +3,15 @@ package api
 import (
 	"encoding/json"
 	"github.com/evilsocket/islazy/log"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
-// POST /api/v1/report/ap
+// PeerReportAP POST /api/v1/report/ap
 func (api *API) PeerReportAP(w http.ResponseWriter, r *http.Request) {
 	var report apReport
 
-	body, err := ioutil.ReadAll(r.Body)
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		ERROR(w, http.StatusUnprocessableEntity, err)
 		return

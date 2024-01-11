@@ -9,7 +9,7 @@ import (
 )
 
 func ChannelHopping(iface string, chanList string, allChannels []int, hopPeriod int) {
-	channels := []int{}
+	var channels []int
 	for _, s := range str.Comma(chanList) {
 		if ch, err := strconv.Atoi(s); err != nil {
 			log.Fatal("%v", err)
