@@ -265,6 +265,9 @@ func (peer *Peer) InactiveFor() float64 {
 }
 
 func (peer *Peer) SetData(adv map[string]interface{}) {
+	if peer == nil {
+		return
+	}
 	peer.Lock()
 	defer peer.Unlock()
 
