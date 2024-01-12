@@ -86,12 +86,12 @@ func waitForKeys() {
 
 func setupMesh() {
 	var err error
-
+	peer = mesh.MakeLocalPeer(utils.Hostname(), keys, advertise)
 	if !advertise {
 		return //this probably doesn't work
 	}
 
-	peer = mesh.MakeLocalPeer(utils.Hostname(), keys, advertise)
+
 	if err = peer.StartAdvertising(iface); err != nil {
 		log.Fatal("error while starting signaling: %v", err)
 	}
