@@ -2,13 +2,12 @@ package api
 
 import (
 	"encoding/json"
-	"io"
-	"net/http"
-	"sort"
-
 	"github.com/evilsocket/islazy/log"
 	"github.com/go-chi/chi/v5"
 	"github.com/jayofelony/pwngrid/mesh"
+	"io"
+	"net/http"
+	"sort"
 )
 
 // PeerGetPeers GET /api/v1/mesh/peers
@@ -51,14 +50,6 @@ func (api *API) PeerGetMemoryOf(w http.ResponseWriter, r *http.Request) {
 // PeerSetSignaling GET /api/v1/mesh/<status>
 func (api *API) PeerSetSignaling(w http.ResponseWriter, r *http.Request) {
 	status := chi.URLParam(r, "status")
-
-	if api.Peer.ForceDisabled == true {
-		api.Peer.Advertise(false)
-		JSON(w, http.StatusOK, map[string]interface{}{
-			"success": true, // this should be changed later when pwnagotchi can handle pwngrid being force advertise disabled
-		})
-		return
-	}
 
 	if status == "enabled" || status == "true" {
 		api.Peer.Advertise(true)

@@ -6,17 +6,16 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"net"
-	"regexp"
-	"strings"
-	"sync"
-	"time"
-
 	"github.com/evilsocket/islazy/log"
 	"github.com/gopacket/gopacket/layers"
 	"github.com/jayofelony/pwngrid/crypto"
 	"github.com/jayofelony/pwngrid/version"
 	"github.com/jayofelony/pwngrid/wifi"
+	"net"
+	"regexp"
+	"strings"
+	"sync"
+	"time"
 )
 
 var (
@@ -43,29 +42,23 @@ type Peer struct {
 	AdvData      sync.Map
 	AdvPeriod    int
 
-	advEnabled    bool
-	ForceDisabled bool
-
-	mux  *PacketMuxer
-	stop chan struct{}
+	advEnabled bool
+	mux        *PacketMuxer
+	stop       chan struct{}
 }
 
-func MakeLocalPeer(name string, keys *crypto.KeyPair, advertise bool) *Peer {
+func MakeLocalPeer(name string, keys *crypto.KeyPair) *Peer {
 	now := time.Now()
 	peer := &Peer{
-		DetectedAt:    now,
-		SeenAt:        now,
-		PrevSeenAt:    now,
-		SessionID:     make([]byte, 6),
-		Keys:          keys,
-		AdvData:       sync.Map{},
-		AdvPeriod:     SignalingPeriod,
-		stop:          make(chan struct{}),
-		advEnabled:    false,
-		ForceDisabled: false,
-	}
-	if !advertise {
-		peer.ForceDisabled = true
+		DetectedAt: now,
+		SeenAt:     now,
+		PrevSeenAt: now,
+		SessionID:  make([]byte, 6),
+		Keys:       keys,
+		AdvData:    sync.Map{},
+		AdvPeriod:  SignalingPeriod,
+		stop:       make(chan struct{}),
+		advEnabled: false,
 	}
 
 	if _, err := rand.Read(peer.SessionID); err != nil {
@@ -96,7 +89,6 @@ func (peer *Peer) Advertise(enabled bool) {
 	defer peer.Unlock()
 	diff := peer.advEnabled != enabled
 	peer.advEnabled = enabled
-
 	if diff {
 		if enabled {
 			log.Info("peer advertisement enabled")
