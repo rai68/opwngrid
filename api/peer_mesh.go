@@ -2,12 +2,13 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/evilsocket/islazy/log"
-	"github.com/go-chi/chi/v5"
-	"github.com/jayofelony/pwngrid/mesh"
 	"io"
 	"net/http"
 	"sort"
+
+	"github.com/evilsocket/islazy/log"
+	"github.com/go-chi/chi/v5"
+	"github.com/jayofelony/pwngrid/mesh"
 )
 
 // PeerGetPeers GET /api/v1/mesh/peers
@@ -73,6 +74,14 @@ func (api *API) PeerGetMeshData(w http.ResponseWriter, r *http.Request) {
 // PeerSetMeshData POST /api/v1/mesh/data
 func (api *API) PeerSetMeshData(w http.ResponseWriter, r *http.Request) {
 	var newData map[string]interface{}
+
+	if api.Peer.ForceDisabled == true {
+		api.Peer.Advertise(false)
+		JSON(w, http.StatusOK, map[string]interface{}{
+			"success": true, // this should be changed later when pwnagotchi can handle pwngrid being force advertise disabled
+		})
+		return
+	}
 
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
