@@ -158,6 +158,7 @@ func (c *Client) request(method string, path string, data interface{}, auth bool
 
 	var obj map[string]interface{}
 	if err = json.Unmarshal(body, &obj); err != nil {
+		log.Debug(fmt.Sprintf("%v", body))
 		return nil, err
 	}
 
