@@ -23,7 +23,7 @@ func Freq2Chan(freq int) int {
 		return ((freq - 2412) / 5) + 1
 	} else if freq == 2484 {
 		return 14
-	} else if freq >= 5035 && freq <= 5865 {
+	} else if freq >= 5035 && freq <= 5885 {
 		return ((freq - 5035) / 5) + 7
 	}
 	return 0
@@ -34,9 +34,8 @@ func Chan2Freq(channel int) int {
 		return ((channel - 1) * 5) + 2412
 	} else if channel == 14 {
 		return 2484
-	} else if channel <= 173 {
+	} else if channel <= 177 {
 		return ((channel - 7) * 5) + 5035
 	}
-
 	return 0
 }

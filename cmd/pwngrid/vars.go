@@ -29,7 +29,7 @@ var (
 	id         = 0
 	address    = "0.0.0.0:8666"
 	env        = ".env"
-	iface      = "mon0"
+	iface      = "wlan0mon"
 	keysPath   = ""
 	peersPath  = "/root/peers"
 	keys       = (*crypto.KeyPair)(nil)
