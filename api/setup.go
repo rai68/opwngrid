@@ -20,13 +20,13 @@ type API struct {
 	Client *Client
 }
 
-func Setup(keys *crypto.KeyPair, peer *mesh.Peer, router *mesh.Router, Endpoint string) (err error, api *API) {
+func Setup(keys *crypto.KeyPair, peer *mesh.Peer, router *mesh.Router, Endpoint string, Hostname string) (err error, api *API) {
 	api = &API{
 		Router: chi.NewRouter(),
 		Keys:   keys,
 		Peer:   peer,
 		Mesh:   router,
-		Client: NewClient(keys, Endpoint),
+		Client: NewClient(keys, Endpoint, Hostname),
 	}
 
 	api.Router.Use(CORS)

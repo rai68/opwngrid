@@ -40,6 +40,7 @@ var (
 	memProfile = ""
 	Endpoint   = "https://api.opwngrid.xyz/api/v1"
 	advertise  = true
+	Hostname   = ""
 )
 
 func init() {
@@ -78,4 +79,5 @@ func init() {
 
 	flag.StringVar(&Endpoint, "endpoint", Endpoint, "Pass which endpoint pwngrid should be using.")
 	flag.BoolVar(&advertise, "advertise", advertise, "Advertise?")
+	flag.StringVar(&Hostname, "hostname", Hostname, "Pass hostname to pwngrid, makes it so it wont read os.hostname()")
 }

@@ -30,20 +30,22 @@ var (
 type Client struct {
 	sync.Mutex
 
-	cli     *http.Client
-	keys    *crypto.KeyPair
-	token   string
-	tokenAt time.Time
-	data    map[string]interface{}
+	cli      *http.Client
+	keys     *crypto.KeyPair
+	token    string
+	tokenAt  time.Time
+	data     map[string]interface{}
+	hostname string
 }
 
-func NewClient(keys *crypto.KeyPair, endpoint string) *Client {
+func NewClient(keys *crypto.KeyPair, endpoint string, hostname string) *Client {
 	cli := &Client{
 		cli: &http.Client{
 			Timeout: time.Duration(ClientTimeout) * time.Second,
 		},
-		keys: keys,
-		data: make(map[string]interface{}),
+		keys:     keys,
+		data:     make(map[string]interface{}),
+		hostname: hostname,
 	}
 
 	Endpoint = endpoint
@@ -72,7 +74,12 @@ func NewClient(keys *crypto.KeyPair, endpoint string) *Client {
 }
 
 func (c *Client) enroll() error {
-	identity := fmt.Sprintf("%s@%s", utils.Hostname(), c.keys.FingerprintHex)
+
+	hostname := c.hostname
+	if hostname == "" {
+		hostname = utils.Hostname()
+	}
+	identity := fmt.Sprintf("%s@%s", hostname, c.keys.FingerprintHex)
 
 	log.Debug("refreshing api token as %s ...", identity)
 
