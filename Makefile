@@ -37,7 +37,7 @@ release_files: clean cross_compile_libpcap_arm64 # cross_compile_libpcap_arm
 	@rm -rf build/pwngrid build/pwngrid-aarch64.sha256
 	@ls -la build
 
-# requires sudo apt-get install bison flex gcc-arm-linux-gnueabi
+# requires sudo apt-get install bison flex gcc-arm-linux-gnueabi libpcap0.8 libpcap-dev
 cross_compile_libpcap_arm:
 	@echo "Cross-compiling libpcap for armv6l..."
 	@wget https://www.tcpdump.org/release/libpcap-1.9.1.tar.gz
@@ -51,7 +51,7 @@ cross_compile_libpcap_arm:
 	@echo "Clean up..."
 	@rm -rf libpcap-1.9.1 libpcap-1.9.1.tar.gz
 
-# requires sudo apt-get install bison flex gcc-aarch64-linux-gnu
+# requires sudo apt-get install bison flex gcc-aarch64-linux-gnu libpcap0.8 libpcap-dev
 cross_compile_libpcap_arm64:
 	@echo "Cross-compiling libpcap for arm64..."
 	@wget https://www.tcpdump.org/release/libpcap-1.9.1.tar.gz
