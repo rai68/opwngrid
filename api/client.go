@@ -10,6 +10,7 @@ import (
 	"os"
 	"sync"
 	"time"
+        "net"
 
 	"github.com/evilsocket/islazy/log"
 	"github.com/jayofelony/pwngrid/crypto"
@@ -19,6 +20,7 @@ import (
 
 var (
 	ClientTimeout   = 60
+	ClientKeepalive = 30
 	ClientTokenFile = "/tmp/pwngrid-api-enrollment.json"
 	Endpoint        = ""
 )
@@ -39,8 +41,20 @@ type Client struct {
 }
 
 func NewClient(keys *crypto.KeyPair, endpoint string, hostname string) *Client {
+  
+	t := &http.Transport{
+		Dial: (&net.Dialer{
+			Timeout:   time.Duration(ClientTimeout) * time.Second,
+			KeepAlive: time.Duration(ClientKeepalive) * time.Second,
+		}).Dial,
+		TLSHandshakeTimeout: time.Duration(ClientTimeout) * time.Second,
+		ResponseHeaderTimeout: time.Duration(ClientTimeout) * time.Second,
+		ExpectContinueTimeout: 4 * time.Second,
+	}
+
 	cli := &Client{
 		cli: &http.Client{
+			Transport: t,
 			Timeout: time.Duration(ClientTimeout) * time.Second,
 		},
 		keys:     keys,
