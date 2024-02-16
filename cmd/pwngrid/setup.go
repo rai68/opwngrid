@@ -91,7 +91,6 @@ func setupMesh() {
 		return //this probably doesn't work
 	}
 
-
 	if err = peer.StartAdvertising(iface); err != nil {
 		log.Fatal("error while starting signaling: %v", err)
 	}
@@ -182,7 +181,7 @@ func setupMode() string {
 	}
 
 	// set up the proper routes for either server or peer mode
-	err, server = api.Setup(keys, peer, router, Endpoint)
+	err, server = api.Setup(keys, peer, router, Endpoint, Hostname)
 	if err != nil {
 		log.Fatal("%v", err)
 	}

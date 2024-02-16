@@ -32,14 +32,16 @@ var (
 type Client struct {
 	sync.Mutex
 
-	cli     *http.Client
-	keys    *crypto.KeyPair
-	token   string
-	tokenAt time.Time
-	data    map[string]interface{}
+	cli      *http.Client
+	keys     *crypto.KeyPair
+	token    string
+	tokenAt  time.Time
+	data     map[string]interface{}
+	hostname string
 }
 
-func NewClient(keys *crypto.KeyPair, endpoint string) *Client {
+func NewClient(keys *crypto.KeyPair, endpoint string, hostname string) *Client {
+  
 	t := &http.Transport{
 		Dial: (&net.Dialer{
 			Timeout:   time.Duration(ClientTimeout) * time.Second,
@@ -55,8 +57,9 @@ func NewClient(keys *crypto.KeyPair, endpoint string) *Client {
 			Transport: t,
 			Timeout: time.Duration(ClientTimeout) * time.Second,
 		},
-		keys: keys,
-		data: make(map[string]interface{}),
+		keys:     keys,
+		data:     make(map[string]interface{}),
+		hostname: hostname,
 	}
 
 	Endpoint = endpoint
@@ -85,7 +88,12 @@ func NewClient(keys *crypto.KeyPair, endpoint string) *Client {
 }
 
 func (c *Client) enroll() error {
-	identity := fmt.Sprintf("%s@%s", utils.Hostname(), c.keys.FingerprintHex)
+
+	hostname := c.hostname
+	if hostname == "" {
+		hostname = utils.Hostname()
+	}
+	identity := fmt.Sprintf("%s@%s", hostname, c.keys.FingerprintHex)
 
 	log.Debug("refreshing api token as %s ...", identity)
 
@@ -171,13 +179,13 @@ func (c *Client) request(method string, path string, data interface{}, auth bool
 
 	var obj map[string]interface{}
 	if err = json.Unmarshal(body, &obj); err != nil {
-		log.Debug(fmt.Sprintf("%v", body))
+		log.Debug(fmt.Sprintf("Error Unmarshalling json body from request: %v", body))
 		return nil, err
 	}
 
 	if res.StatusCode == 401 {
 		if err := c.enroll(); err != nil {
-			log.Warning("error token expired failed to re-enroll: %v", err)
+			log.Warning("error token expired during operation: %v", err)
 			return nil, err
 		}
 		log.Warning("token expired, re-enroll success")
