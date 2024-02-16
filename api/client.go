@@ -165,13 +165,13 @@ func (c *Client) request(method string, path string, data interface{}, auth bool
 
 	var obj map[string]interface{}
 	if err = json.Unmarshal(body, &obj); err != nil {
-		log.Debug(fmt.Sprintf("%v", body))
+		log.Debug(fmt.Sprintf("Error Unmarshalling json body from request: %v", body))
 		return nil, err
 	}
 
 	if res.StatusCode == 401 {
 		if err := c.enroll(); err != nil {
-			log.Warning("error token expired failed to re-enroll: %v", err)
+			log.Warning("error token expired during operation: %v", err)
 			return nil, err
 		}
 		log.Warning("token expired, re-enroll success")
