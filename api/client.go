@@ -6,11 +6,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"os"
 	"sync"
 	"time"
-        "net"
 
 	"github.com/evilsocket/islazy/log"
 	"github.com/jayofelony/pwngrid/crypto"
@@ -41,13 +41,13 @@ type Client struct {
 }
 
 func NewClient(keys *crypto.KeyPair, endpoint string, hostname string) *Client {
-  
+
 	t := &http.Transport{
 		Dial: (&net.Dialer{
 			Timeout:   time.Duration(ClientTimeout) * time.Second,
 			KeepAlive: time.Duration(ClientKeepalive) * time.Second,
 		}).Dial,
-		TLSHandshakeTimeout: time.Duration(ClientTimeout) * time.Second,
+		TLSHandshakeTimeout:   time.Duration(ClientTimeout) * time.Second,
 		ResponseHeaderTimeout: time.Duration(ClientTimeout) * time.Second,
 		ExpectContinueTimeout: 4 * time.Second,
 	}
@@ -55,7 +55,7 @@ func NewClient(keys *crypto.KeyPair, endpoint string, hostname string) *Client {
 	cli := &Client{
 		cli: &http.Client{
 			Transport: t,
-			Timeout: time.Duration(ClientTimeout) * time.Second,
+			Timeout:   time.Duration(ClientTimeout) * time.Second,
 		},
 		keys:     keys,
 		data:     make(map[string]interface{}),
